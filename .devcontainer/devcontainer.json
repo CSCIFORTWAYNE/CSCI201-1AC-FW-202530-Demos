@@ -5,7 +5,8 @@
 		// Configure properties specific to VS Code.
 		"vscode": {
 			"settings": {
-				"workbench.colorTheme": "Default Dark+" //replace Panda syntax
+				"workbench.colorTheme": "Default Dark+", //replace Panda syntax
+				"chat.disableAIFeatures": true
 			},
 			// Add the IDs of extensions you want installed when the container is created.
 			"extensions": [
