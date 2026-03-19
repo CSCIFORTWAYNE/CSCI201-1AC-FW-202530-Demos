@@ -5,8 +5,8 @@
 class Clock
 {
 public:
-    Clock(int, int, int);
-    void setTime(int, int, int);
+    Clock(int = 0, int = 0, int = 0);
+    void setTime(int, int = 0, int = 0);
     void setHour(int);
     void setMinute(int);
     void setSecond(int);
