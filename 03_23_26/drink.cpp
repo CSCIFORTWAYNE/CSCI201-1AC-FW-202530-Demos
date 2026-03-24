@@ -1,12 +1,23 @@
 #include "drink.h"
 
-drink::drink(baseType b, tempType t, sizeType s, std::string dairy, std::string flavor)
+drink::drink(baseType b, tempType t, sizeType s, std::string dairy, std::string flavor) : product(22, "drink", 1)
 {
     setBase(b);
     setTemperature(t);
     setSize(s);
     setDairy(dairy);
     setFlavor(flavor);
+    setPrice(getPrice());
+}
+
+drink::drink(baseType b, tempType t, sizeType s, std::string dairy, std::string flavor, int pn, std::string desc) : product(pn, desc, 1)
+{
+    setBase(b);
+    setTemperature(t);
+    setSize(s);
+    setDairy(dairy);
+    setFlavor(flavor);
+    setPrice(getPrice());
 }
 
 void drink::setBase(baseType b)
@@ -130,6 +141,7 @@ std::string drink::toString() const
 {
     std::ostringstream out;
     out << std::setprecision(2) << std::fixed << std::showpoint;
+    out << product::toString() << std::endl;
     out << "Size: " << getSize() << std::endl;
     out << "Base: " << getBaseStr() << std::endl;
     out << "Temperature: " << getTemperature() << std::endl;

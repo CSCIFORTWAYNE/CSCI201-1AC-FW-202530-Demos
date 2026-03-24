@@ -4,6 +4,7 @@
 #include <sstream>
 #include <iomanip>
 #include <algorithm>
+#include "product.h"
 
 enum baseType
 {
@@ -18,7 +19,7 @@ enum class sizeType
     LARGE
 };
 
-class drink
+class drink : public product
 {
 public:
     enum tempType
@@ -28,6 +29,7 @@ public:
         BLEND
     };
     drink(baseType b, tempType t, sizeType s, std::string dairy, std::string flavor);
+    drink(baseType b, tempType t, sizeType s, std::string dairy, std::string flavor, int pn, std::string desc);
     std::string getBaseStr() const;
     std::string getTemperature() const;
     std::string getSize() const;
