@@ -7,7 +7,17 @@
 class Clock
 {
 public:
-    Clock(int = 0, int = 0, int = 0);
+    enum ClockType
+    {
+        TWELVE,
+        TWENTYFOUR
+    };
+    enum PartOfDayType
+    {
+        AM,
+        PM
+    };
+    Clock(int = 0, int = 0, int = 0, ClockType = TWENTYFOUR, PartOfDayType = AM);
     void setTime(int, int = 0, int = 0);
     void setHour(int);
     void setMinute(int);
@@ -27,6 +37,8 @@ private:
     int hr;
     int min;
     int sec;
+    ClockType type;
+    PartOfDayType timeOfDay;
 };
 
 #endif

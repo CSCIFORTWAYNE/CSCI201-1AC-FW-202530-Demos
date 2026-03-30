@@ -9,9 +9,19 @@ void Clock::setTime(int h, int m, int s)
 
 void Clock::setHour(int h)
 {
-    if (h < 0 || h > 23)
+    if (type == TWENTYFOUR)
     {
-        h = 0;
+        if (h < 0 || h > 23)
+        {
+            h = 0;
+        }
+    }
+    else
+    {
+        if (h < 1 || h > 12)
+        {
+            h = 12;
+        }
     }
     hr = h;
 }
@@ -33,7 +43,7 @@ void Clock::setSecond(int s)
     sec = s;
 }
 
-Clock::Clock(int h, int m, int s)
+Clock::Clock(int h, int m, int s, ClockType t, PartOfDayType part) : type(t), timeOfDay(part)
 {
     setTime(h, m, s);
 }
@@ -65,6 +75,17 @@ std::string Clock::printTime() const
     std::ostringstream out;
     out << std::setfill('0');
     out << std::setw(2) << hr << ":" << std::setw(2) << min << ":" << std::setw(2) << sec;
+    if (type == TWELVE)
+    {
+        if (timeOfDay == AM)
+        {
+            out << " AM";
+        }
+        else
+        {
+            out << " PM";
+        }
+    }
     // std::string out;
     // out = out + std::to_string(hr) + ":" + std::to_string(min) + ":" + std::to_string(sec);
     return out.str();
