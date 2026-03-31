@@ -47,6 +47,21 @@ int main()
     clockPtr->clockTick();
     clockPtr->clockTick();
     std::cout << clockPtr->printTime() << std::endl;
+    Clock clocks[10];
+    std::cout << "How many clocks? ";
+    std::cin >> m;
+    while (!std::cin || m < 1)
+    {
+        if (!std::cin)
+        {
+            resetStream();
+        }
+        std::cout << "How many clocks? ";
+        std::cin >> m;
+    }
+    Clock *moreClocks = new Clock[m];
+    std::cout << moreClocks[m - 1].printTime() << std::endl;
+    moreClocks = new Clock;
 
     return 0;
 }
