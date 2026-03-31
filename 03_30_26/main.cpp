@@ -4,9 +4,9 @@
 #include "clock.h"
 
 void resetStream();
-//lecture activity M03-A what code is needed to stop the memory leak caused by doubleArray on line 84
-//explain the difference between line 38 and line 65 and line 70
-
+// lecture activity M03-A what code is needed to stop the memory leak caused by doubleArray on line 84
+// explain the difference between line 38 and line 65 and line 70
+Clock **makeClocks(int numClocks);
 int main()
 {
     int *p = nullptr;
@@ -78,6 +78,10 @@ int main()
     delete clockPtr;
     clockPtr = nullptr;
     // if(clockPtr == nullptr)
+    for (int i = 0; i < m; i++)
+    {
+        delete moreClocks[i];
+    }
     delete[] moreClocks;
     moreClocks = nullptr;
     // moreClocks = new Clock;
@@ -93,6 +97,13 @@ int main()
         }
     }
     moreClocks = nullptr;
+    moreClocks = makeClocks(1000);
+    for (int i = 0; i < 1000; i++)
+    {
+        delete moreClocks[i];
+        moreClocks[i] = nullptr;
+    }
+    delete[] moreClocks;
 
     return 0;
 }
@@ -101,4 +112,14 @@ void resetStream()
 {
     std::cin.clear();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+}
+
+Clock **makeClocks(int numClocks)
+{
+    Clock **clocks = new Clock *[numClocks];
+    for (int i = 0; i < numClocks; i++)
+    {
+        clocks[i] = new Clock(0, 0, 0);
+    }
+    return clocks;
 }
