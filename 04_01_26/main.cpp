@@ -29,6 +29,7 @@ int main()
     {
         myarray.insert(rand() % 900 + 1);
     }
+    myarray.insert(rand() % 1000 + 900);
 
     return 0;
 }
