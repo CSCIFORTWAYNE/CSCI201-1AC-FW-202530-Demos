@@ -1,4 +1,5 @@
 #include "twentyFourHrClock.h"
+#include "twelveHrClock.h"
 
 TwentyFourHrClock::TwentyFourHrClock(int h, int m, int s)
 {
@@ -23,6 +24,22 @@ void TwentyFourHrClock::incrementHours()
     }
 }
 
+TwentyFourHrClock::TwentyFourHrClock(const TwelveHrClock &clockToConvert)
+{
+    int standardHr = clockToConvert.getHour();
+    if (standardHr == 12)
+    {
+        standardHr = 0;
+    }
+    if (clockToConvert.getPartOfDayType() == TwelveHrClock::PM)
+    {
+        standardHr = standardHr + 12;
+    }
+    hr = standardHr;
+    min = clockToConvert.getMinute();
+    sec = clockToConvert.getSecond();
+}
+
 TwentyFourHrClock TwentyFourHrClock::operator+(int minutesToAdd)
 {
     TwentyFourHrClock newClock = *this;
@@ -36,4 +53,19 @@ TwentyFourHrClock TwentyFourHrClock::operator+(int minutesToAdd)
 bool TwentyFourHrClock::operator==(TwentyFourHrClock rightClock)
 {
     return this->hr == rightClock.hr && this->min == rightClock.min && this->sec == rightClock.sec;
+}
+
+/* bool operator==(TwentyFourHrClock leftClock, TwentyFourHrClock rightClock)
+{
+    return leftClock.hr == rightClock.hr && leftClock.min == rightClock.min && leftClock.sec == rightClock.sec;
+} */
+
+bool TwentyFourHrClock::operator!=(TwentyFourHrClock rightClock)
+{
+    return !(*this == rightClock);
+}
+
+TwentyFourHrClock operator+(int minutesToAdd, TwentyFourHrClock c)
+{
+    return c + minutesToAdd;
 }

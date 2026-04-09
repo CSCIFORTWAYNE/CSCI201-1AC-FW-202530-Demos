@@ -85,3 +85,10 @@ void Clock::incrementMinutes()
 {
     return hr == otherClock.hr && min == otherClock.min && sec == otherClock.sec;
 } */
+
+std::ostream &operator<<(std::ostream &out, const Clock &c)
+{
+    out << c.printTime();
+
+    return out;
+}

@@ -21,6 +21,7 @@ public:
     std::string getPartOfDayStr() const;
     PartOfDayType getPartOfDayType() const;
     std::string printTime() const;
+    friend bool operator==(TwelveHrClock leftClock, TwelveHrClock rightClock);
 
 private:
     PartOfDayType partOfDay;

@@ -30,6 +30,7 @@ public:
     void incrementSeconds();
     void incrementMinutes();
     virtual void incrementHours() = 0;
+    friend std::ostream &operator<<(std::ostream &, const Clock &);
 
     // bool equalTime(const Clock &) const;
     // void clockTick();

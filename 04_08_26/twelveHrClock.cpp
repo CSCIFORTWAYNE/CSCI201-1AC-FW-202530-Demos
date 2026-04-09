@@ -61,3 +61,8 @@ std::string TwelveHrClock::printTime() const
     std::string out = Clock::printTime() + " " + getPartOfDayStr();
     return out;
 }
+
+bool operator==(TwelveHrClock leftClock, TwelveHrClock rightClock)
+{
+    return leftClock.partOfDay == rightClock.partOfDay && leftClock.hr == rightClock.hr && leftClock.min == rightClock.min && leftClock.sec == rightClock.sec;
+}
