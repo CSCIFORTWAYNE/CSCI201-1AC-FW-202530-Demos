@@ -2,7 +2,7 @@
 #include "twelveHrClock.h"
 #include <iostream>
 
-// M04 part b add >, >=, <, <= to the TwentyFourHour class. Submit your changed class and functions.
+// M04 part b add >, >=, <, <= to the TwentyFourHrClock class. Submit your changed class and functions.
 
 int main()
 {

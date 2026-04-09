@@ -74,3 +74,13 @@ TwentyFourHrClock operator+(int minutesToAdd, TwentyFourHrClock c)
 {
     return c + minutesToAdd;
 }
+
+std::istream &operator>>(std::istream &in, TwelveHrClock &c)
+{
+    int h, m, s;
+    in >> h >> m >> s;
+    c.setHour(h);
+    c.setMinute(m);
+    c.setSecond(s);
+    return in;
+}

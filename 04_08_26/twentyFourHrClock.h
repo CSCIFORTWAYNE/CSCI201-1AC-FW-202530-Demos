@@ -19,6 +19,7 @@ public:
     bool operator!=(TwentyFourHrClock rightClock);
     Clock *makeCopy();
     // add operators for <, <=, >, >= either friend or member
+    friend std::istream &operator>>(std::istream &in, TwelveHrClock &c);
 };
 
 #endif
