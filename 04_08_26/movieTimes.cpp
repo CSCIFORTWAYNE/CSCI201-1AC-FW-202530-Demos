@@ -20,6 +20,15 @@ MovieTimes::MovieTimes(const MovieTimes &movieToCopy)
     copyMovie(movieToCopy);
 }
 
+const MovieTimes &MovieTimes::operator=(const MovieTimes &rightHandMovie)
+{
+    if (this != &rightHandMovie) // avoid self copy. This is our address, & gets address of rightHandMovie. They should be different addresses.
+    {
+        copyMovie(rightHandMovie);
+    }
+    return *this;
+}
+
 void MovieTimes::enterTimes()
 {
     if (numTimes > 0)
@@ -63,7 +72,7 @@ std::string MovieTimes::getRating() const
     return rating;
 }
 
-void MovieTimes::addTime(Clock timeAdd)
+void MovieTimes::addTime(Clock *timeAdd)
 {
     numTimes++;
     Clock **temp = showTimes;
@@ -72,7 +81,7 @@ void MovieTimes::addTime(Clock timeAdd)
     {
         showTimes[i] = temp[i]; // acceptable shallow copy
     }
-    showTimes[numTimes - 1] = new Clock(timeAdd);
+    showTimes[numTimes - 1] = timeAdd->makeCopy();
     delete[] temp;
 }
 
@@ -105,6 +114,6 @@ void MovieTimes::copyMovie(const MovieTimes &movieToCopy)
     for (int i = 0; i < numTimes; i++)
     {
         // showTimes[i] = movieToCopy.showTimes[i] //bad shallow copy
-        showTimes[i] = new Clock(*(movieToCopy.showTimes[i]));
+        // showTimes[i] = new Clock(*(movieToCopy.showTimes[i]));
     }
 }

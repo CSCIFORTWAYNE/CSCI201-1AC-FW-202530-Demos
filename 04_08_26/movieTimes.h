@@ -13,12 +13,13 @@ class MovieTimes
 public:
     MovieTimes(std::string title, int runtime, std::string rating);
     MovieTimes(const MovieTimes &);
+    const MovieTimes &operator=(const MovieTimes &rightHandMovie);
     void enterTimes();
     std::string tostring() const;
     std::string getTitle() const;
     int getRuntime() const;
     std::string getRating() const;
-    void addTime(Clock timeAdd);
+    void addTime(Clock *timeAdd);
     ~MovieTimes();
     void clearTimes();
 
@@ -37,6 +38,6 @@ bool isIntGT0(int num, int = 0, int = 0);
 void resetStream();
 Clock *makeClock();
 bool isAorB(int num, int a, int b);
-Clock::ClockType inputClockType();
-Clock::PartOfDayType inputPartOfDay();
+// Clock::ClockType inputClockType();
+// Clock::PartOfDayType inputPartOfDay();
 #endif

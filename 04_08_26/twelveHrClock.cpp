@@ -1,4 +1,5 @@
 #include "twelveHrClock.h"
+#include "twentyFourHrClock.h"
 
 const TwelveHrClock::PartOfDayType TwelveHrClock::parts[2] = {TwelveHrClock::AM, TwelveHrClock::PM};
 const std::string TwelveHrClock::partToStr[] = {"AM", "PM"};
@@ -7,6 +8,22 @@ TwelveHrClock::TwelveHrClock(int h, int m, int s, PartOfDayType part)
 {
     setTime(h, m, s);
     setPartOfDay(part);
+}
+
+TwelveHrClock::TwelveHrClock(const TwentyFourHrClock &clockToConvert)
+{
+    int newHour = clockToConvert.getHour();
+    if (newHour >= 12)
+    {
+        partOfDay = PM;
+    }
+    if (newHour > 12)
+    {
+        newHour = newHour - 12;
+    }
+    hr = newHour;
+    min = clockToConvert.getMinute();
+    sec = clockToConvert.getSecond();
 }
 
 void TwelveHrClock::setHour(int hour)
@@ -62,7 +79,16 @@ std::string TwelveHrClock::printTime() const
     return out;
 }
 
-bool operator==(TwelveHrClock leftClock, TwelveHrClock rightClock)
+/* bool operator==(TwelveHrClock leftClock, TwelveHrClock rightClock)
 {
     return leftClock.partOfDay == rightClock.partOfDay && leftClock.hr == rightClock.hr && leftClock.min == rightClock.min && leftClock.sec == rightClock.sec;
+} */
+bool TwelveHrClock::operator==(TwelveHrClock rightClock)
+{
+    return this->partOfDay == rightClock.partOfDay && this->hr == rightClock.hr && this->min == rightClock.min && this->sec == rightClock.sec;
+}
+
+Clock *TwelveHrClock::makeCopy()
+{
+    return new TwelveHrClock(*this);
 }

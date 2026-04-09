@@ -92,3 +92,14 @@ std::ostream &operator<<(std::ostream &out, const Clock &c)
 
     return out;
 }
+const Clock &Clock::operator++()
+{
+    incrementSeconds();
+    return *this;
+}
+const Clock &Clock::operator++(int) // this will have a memory leak
+{
+    Clock *temp = makeCopy();
+    incrementSeconds();
+    return *temp;
+}

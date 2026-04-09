@@ -7,7 +7,8 @@ int main()
     int x;
     int y = 6;
     int z = 10;
-    x = 4 + (z + y);
+    x = 4 + (z++ + ++y); // what is x, what is y, what is z
+
     TwentyFourHrClock clock;
     std::cout << clock << std::endl;
     clock = clock + 10;
@@ -15,9 +16,11 @@ int main()
     clock = 10 + clock;
     std::cout << clock << std::endl;
     TwelveHrClock clock12;
-    if (clock == clock12)
+    clock12++;
+    if (clock12 == clock)
     {
         std::cout << "The clocks have the same time" << std::endl;
     }
+    x = x;
     return 0;
 }

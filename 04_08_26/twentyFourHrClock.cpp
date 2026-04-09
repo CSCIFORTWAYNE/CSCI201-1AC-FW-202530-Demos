@@ -65,6 +65,11 @@ bool TwentyFourHrClock::operator!=(TwentyFourHrClock rightClock)
     return !(*this == rightClock);
 }
 
+Clock *TwentyFourHrClock::makeCopy()
+{
+    return new TwentyFourHrClock(*this);
+}
+
 TwentyFourHrClock operator+(int minutesToAdd, TwentyFourHrClock c)
 {
     return c + minutesToAdd;

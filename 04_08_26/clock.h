@@ -30,8 +30,10 @@ public:
     void incrementSeconds();
     void incrementMinutes();
     virtual void incrementHours() = 0;
+    virtual Clock *makeCopy() = 0;
     friend std::ostream &operator<<(std::ostream &, const Clock &);
-
+    const Clock &operator++();
+    const Clock &operator++(int);
     // bool equalTime(const Clock &) const;
     // void clockTick();
     // static const ClockType formats[2];   // = {TWELVE, TWENTYFOUR};
