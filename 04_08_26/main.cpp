@@ -2,6 +2,8 @@
 #include "twelveHrClock.h"
 #include <iostream>
 
+// M04 part b add >, >=, <, <= to the TwentyFourHour class. Submit your changed class and functions.
+
 int main()
 {
     int x;

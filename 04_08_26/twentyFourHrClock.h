@@ -18,6 +18,7 @@ public:
     // friend bool operator==(TwentyFourHrClock leftClock, TwentyFourHrClock rightClock);
     bool operator!=(TwentyFourHrClock rightClock);
     Clock *makeCopy();
+    // add operators for <, <=, >, >= either friend or member
 };
 
 #endif
