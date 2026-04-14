@@ -61,8 +61,8 @@ public:
     void removeFlavor(flavType);
     void removeAllFlavor();
     std::string toString() const;
-    static std::map<baseType, std::string> baseToStr;
-    static std::map<std::string, baseType> strToBase;
+    static std::map<baseType, std::string> baseToStr; // map for output
+    static std::map<std::string, baseType> strToBase; // map for input
     static std::map<sizeType, std::string> sizeToStr;
     static std::map<std::string, sizeType> strToSize;
     static std::map<tempType, std::string> tempToStr;

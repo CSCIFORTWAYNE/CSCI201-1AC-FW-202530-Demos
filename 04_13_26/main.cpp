@@ -24,7 +24,11 @@ int main()
     std::cout << maxTemplate(x, y) << std::endl;
 
     drink d1(COFFEE, drink::HOT, sizeType::LARGE, "Milk");
+    d1.addFlavor(MOCHA);
+    d1.addFlavor(CARAMEL);
     drink d2(COFFEE, drink::ICE, sizeType::LARGE, "Milk");
+    d2.addFlavor(MOCHA);
+    d2.addFlavor(CARAMEL);
     std::cout << d1 << std::endl;
     std::cout << d2 << std::endl;
     std::cout << maxTemplate(d1, d2).toString() << std::endl;

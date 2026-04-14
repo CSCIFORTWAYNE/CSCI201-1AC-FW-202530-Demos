@@ -32,6 +32,14 @@ void drink::addFlavor(flavType f)
 {
     flavors.insert(f);
 }
+void drink::removeFlavor(flavType f)
+{
+    flavors.erase(f);
+}
+void drink::removeAllFlavor()
+{
+    flavors.clear();
+}
 std::string drink::getBaseStr() const
 {
     return baseToStr[base];
@@ -54,7 +62,18 @@ std::string drink::getDairy() const
 
 std::string drink::getFlavor() const
 {
-    // return flavor;
+    std::ostringstream out;
+    if (flavors.empty())
+    {
+        return "None";
+    }
+    std::set<flavType>::iterator it = flavors.begin();
+    out << flavToStr[*it];
+    for (++it; it != flavors.end(); ++it)
+    {
+        out << ", " << flavToStr[*it];
+    }
+    return out.str();
 }
 
 double drink::getPrice() const
@@ -94,7 +113,7 @@ double drink::getPrice() const
         price += .75;
         break;
     }
-    price += .5;
+    price += .25 * flavors.size();
     std::string lowerD = dairy;
     std::transform(lowerD.begin(), lowerD.end(), lowerD.begin(), ::tolower);
     if (lowerD == "whole milk")
@@ -168,5 +187,17 @@ std::map<std::string, drink::tempType> drink::strToTemp = {{"hot", drink::HOT},
 std::map<std::string, sizeType> drink::strToSize = {{"SMALL", sizeType::SMALL},
                                                     {"MEDIUM", sizeType::MED},
                                                     {"LARGE", sizeType::LARGE}};
-std::map<flavType, std::string> drink::flavToStr = {};
+std::map<flavType, std::string> drink::flavToStr = {{HAZELNUT, "Hazelnut"},
+                                                    {APPLE, "Apple"},
+                                                    {BUTTERPECAN, "Butter Pecan"},
+                                                    {BLUEBERRY, "Blueberry"},
+                                                    {CARAMEL, "Caramel"},
+                                                    {PEACH, "Peach"},
+                                                    {MOCHA, "Mocha"},
+                                                    {RASPBERRY, "Raspberry"},
+                                                    {FRENCHVANILLA, "French Vanilla"},
+                                                    {STRAWBERRY, "Strawberry"},
+                                                    {PEPPERMINT, "Peppermint"},
+                                                    {MANGO, "Mango"}};
+;
 std::map<std::string, flavType> drink::strToFlav = {};
