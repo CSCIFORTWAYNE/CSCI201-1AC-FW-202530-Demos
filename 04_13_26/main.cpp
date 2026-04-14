@@ -12,6 +12,10 @@ char max(char, char);
 template <class t>
 t maxTemplate(t, t);
 
+// M05 - part A lab
+// fill in the strToFlav map. Strings should be in all upper case or all lower case.
+//  add two new flavor enums. Add the pieces to both maps.
+
 int main()
 {
     int x = 8;
@@ -19,8 +23,8 @@ int main()
     std::cout << max(x, y) << std::endl;
     std::cout << maxTemplate(x, y) << std::endl;
 
-    drink d1(COFFEE, drink::HOT, sizeType::LARGE, "Milk", "Chocolate");
-    drink d2(COFFEE, drink::ICE, sizeType::LARGE, "Milk", "Chocolate");
+    drink d1(COFFEE, drink::HOT, sizeType::LARGE, "Milk");
+    drink d2(COFFEE, drink::ICE, sizeType::LARGE, "Milk");
     std::cout << d1 << std::endl;
     std::cout << d2 << std::endl;
     std::cout << maxTemplate(d1, d2).toString() << std::endl;
@@ -51,8 +55,17 @@ int main()
         }
         else
         {
-
-            vector1.push_back(new TwelveHrClock(twelveHrDist(generator), minSecDist(generator), minSecDist(generator), partDistribution(generator) ? TwelveHrClock::AM : TwelveHrClock::PM));
+            TwelveHrClock::PartOfDayType part;
+            std::string partStr;
+            std::cout << "Is the clock AM or PM? ";
+            std::cin >> partStr;
+            while (!TwelveHrClock::strToPartMap.count(partStr))
+            {
+                std::cout << "Please Enter AM or PM. ";
+                std::cin >> partStr;
+            }
+            part = TwelveHrClock::strToPartMap[partStr];
+            vector1.push_back(new TwelveHrClock(twelveHrDist(generator), minSecDist(generator), minSecDist(generator), part));
         }
         std::cout << *vector1[i] << std::endl;
         i++;

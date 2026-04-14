@@ -1,12 +1,11 @@
 #include "drink.h"
 
-drink::drink(baseType b, tempType t, sizeType s, std::string dairy, std::string flavor)
+drink::drink(baseType b, tempType t, sizeType s, std::string dairy)
 {
     setBase(b);
     setTemperature(t);
     setSize(s);
     setDairy(dairy);
-    setFlavor(flavor);
 }
 
 void drink::setBase(baseType b)
@@ -29,23 +28,23 @@ void drink::setDairy(std::string d)
     dairy = d;
 }
 
-void drink::setFlavor(std::string f)
+void drink::addFlavor(flavType f)
 {
-    flavor = f;
+    flavors.insert(f);
 }
 std::string drink::getBaseStr() const
 {
-    return baseStr[base];
+    return baseToStr[base];
 }
 
 std::string drink::getTemperature() const
 {
-    return tempStr[temp];
+    return tempToStr[temp];
 }
 
 std::string drink::getSize() const
 {
-    return sizeStr[static_cast<int>(size)];
+    return sizeToStr[size];
 }
 
 std::string drink::getDairy() const
@@ -55,7 +54,7 @@ std::string drink::getDairy() const
 
 std::string drink::getFlavor() const
 {
-    return flavor;
+    // return flavor;
 }
 
 double drink::getPrice() const
@@ -153,9 +152,21 @@ std::ostream &operator<<(std::ostream &out, const drink &d)
     return out;
 }
 
-const std::string drink::baseStr[] = {"Coffee", "Tea", "Cream"};
-const std::string drink::tempStr[] = {"Hot", "Iced", "Blended"};
-const std::string drink::sizeStr[] = {"Small", "Medium", "Large"};
-const baseType drink::bases[] = {COFFEE, TEA, CREAM};
-const drink::tempType drink::temps[] = {tempType::HOT, tempType::ICE, tempType::BLEND};
-const sizeType drink::sizes[] = {sizeType::SMALL, sizeType::MED, sizeType::LARGE};
+std::map<baseType, std::string> drink::baseToStr = {{COFFEE, "Coffee"}, {TEA, "Tea"}, {CREAM, "Cream"}};
+std::map<drink::tempType, std::string> drink::tempToStr = {{drink::HOT, "Hot"},
+                                                           {drink::ICE, "Iced"},
+                                                           {drink::BLEND, "Blended"}};
+std::map<sizeType, std::string> drink::sizeToStr = {{sizeType::SMALL, "Small"},
+                                                    {sizeType::MED, "Medium"},
+                                                    {sizeType::LARGE, "Large"}};
+std::map<std::string, baseType> drink::strToBase = {{"COFFEE", COFFEE},
+                                                    {"TEA", TEA},
+                                                    {"CREAM", CREAM}};
+std::map<std::string, drink::tempType> drink::strToTemp = {{"hot", drink::HOT},
+                                                           {"iced", drink::ICE},
+                                                           {"blended", drink::BLEND}};
+std::map<std::string, sizeType> drink::strToSize = {{"SMALL", sizeType::SMALL},
+                                                    {"MEDIUM", sizeType::MED},
+                                                    {"LARGE", sizeType::LARGE}};
+std::map<flavType, std::string> drink::flavToStr = {};
+std::map<std::string, flavType> drink::strToFlav = {};

@@ -3,6 +3,8 @@
 
 const TwelveHrClock::PartOfDayType TwelveHrClock::parts[2] = {TwelveHrClock::AM, TwelveHrClock::PM};
 const std::string TwelveHrClock::partToStr[] = {"AM", "PM"};
+std::map<TwelveHrClock::PartOfDayType, std::string> TwelveHrClock::partToStrMap = {{TwelveHrClock::AM, "AM"}, {TwelveHrClock::PM, "PM"}};
+std::map<std::string, TwelveHrClock::PartOfDayType> TwelveHrClock::strToPartMap = {{"AM", TwelveHrClock::AM}, {"am", TwelveHrClock::AM}, {"PM", TwelveHrClock::PM}, {"pm", TwelveHrClock::PM}};
 
 TwelveHrClock::TwelveHrClock(int h, int m, int s, PartOfDayType part)
 {
@@ -65,7 +67,7 @@ void TwelveHrClock::setPartOfDay(PartOfDayType part)
 
 std::string TwelveHrClock::getPartOfDayStr() const
 {
-    return partToStr[partOfDay];
+    return partToStrMap[partOfDay];
 }
 
 TwelveHrClock::PartOfDayType TwelveHrClock::getPartOfDayType() const

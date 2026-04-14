@@ -4,6 +4,8 @@
 #include <sstream>
 #include <iomanip>
 #include <algorithm>
+#include <set>
+#include <map>
 
 enum baseType
 {
@@ -18,6 +20,23 @@ enum class sizeType
     LARGE
 };
 
+enum flavType
+{
+    HAZELNUT,
+    APPLE,
+    BUTTERPECAN,
+    BLUEBERRY,
+    CARAMEL,
+    PEACH,
+    MOCHA,
+    RASPBERRY,
+    FRENCHVANILLA,
+    STRAWBERRY,
+    PEPPERMINT,
+    MANGO
+
+};
+
 class drink
 {
 public:
@@ -27,7 +46,7 @@ public:
         ICE,
         BLEND
     };
-    drink(baseType b, tempType t, sizeType s, std::string dairy, std::string flavor);
+    drink(baseType b, tempType t, sizeType s, std::string dairy);
     std::string getBaseStr() const;
     std::string getTemperature() const;
     std::string getSize() const;
@@ -38,14 +57,18 @@ public:
     void setTemperature(tempType t);
     void setSize(sizeType s);
     void setDairy(std::string d);
-    void setFlavor(std::string f);
+    void addFlavor(flavType);
+    void removeFlavor(flavType);
+    void removeAllFlavor();
     std::string toString() const;
-    const static std::string baseStr[];
-    const static std::string tempStr[];
-    const static std::string sizeStr[];
-    const static baseType bases[];
-    const static tempType temps[];
-    const static sizeType sizes[];
+    static std::map<baseType, std::string> baseToStr;
+    static std::map<std::string, baseType> strToBase;
+    static std::map<sizeType, std::string> sizeToStr;
+    static std::map<std::string, sizeType> strToSize;
+    static std::map<tempType, std::string> tempToStr;
+    static std::map<std::string, tempType> strToTemp;
+    static std::map<flavType, std::string> flavToStr;
+    static std::map<std::string, flavType> strToFlav;
     bool operator>=(const drink &rightDrink) const;
     friend std::ostream &operator<<(std::ostream &, const drink &);
 
@@ -54,7 +77,7 @@ private:
     tempType temp;
     sizeType size;
     std::string dairy;
-    std::string flavor;
+    std::set<flavType> flavors;
 };
 
 #endif
