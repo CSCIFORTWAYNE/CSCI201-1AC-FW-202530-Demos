@@ -1,5 +1,6 @@
 #include <iostream>
 #include <random>
+#include <vector>
 #include "drink.h"
 #include "twelveHrClock.h"
 #include "twentyFourHrClock.h"
@@ -32,6 +33,36 @@ int main()
     TwelveHrClock randomClock(twelveHrDist(generator), minSecDist(generator), minSecDist(generator), partDistribution(generator) ? TwelveHrClock::AM : TwelveHrClock::PM);
 
     std::cout << randomClock << std::endl;
+    std::vector<Clock *> vector1;
+    int i = 0;
+    while (true)
+    {
+        std::string more = "yes";
+        std::cout << "Do you want more clocks? ";
+        std::getline(std::cin >> std::ws, more);
+        if (more != "yes")
+        {
+            break;
+        }
+        if (partDistribution(generator))
+        {
+            TwentyFourHrClock *newRandomClock = new TwentyFourHrClock(twentyFourHrDist(generator), minSecDist(generator), minSecDist(generator));
+            vector1.push_back(newRandomClock);
+        }
+        else
+        {
+
+            vector1.push_back(new TwelveHrClock(twelveHrDist(generator), minSecDist(generator), minSecDist(generator), partDistribution(generator) ? TwelveHrClock::AM : TwelveHrClock::PM));
+        }
+        std::cout << *vector1[i] << std::endl;
+        i++;
+    }
+    std::cout << "final clock list" << std::endl;
+    for (int i = 0; i < vector1.size(); i++)
+    {
+        std::cout << *vector1[i] << std::endl;
+        delete vector1[i];
+    }
 
     return 0;
 }
