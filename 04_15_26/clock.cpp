@@ -15,7 +15,7 @@ void Clock::setMinute(int m)
 {
     if (m < 0 || m > 59)
     {
-        m = 0;
+        throw invalid_min(m);
     }
     min = m;
 }
@@ -23,7 +23,7 @@ void Clock::setSecond(int s)
 {
     if (s < 0 || s > 59)
     {
-        s = 0;
+        throw invalid_sec(s);
     }
     sec = s;
 }

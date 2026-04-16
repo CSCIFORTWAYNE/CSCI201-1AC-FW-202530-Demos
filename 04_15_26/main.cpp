@@ -8,6 +8,7 @@
 #include "twentyFourHrClock.h"
 
 int getInt(std::string prompt, std::string error, bool (*valid)(int, int, int), int low = 0, int high = 0);
+int getInt(std::string prompt);
 bool isIntInRange(int num, int low, int high);
 bool isIntGTX(int num, int x = 0, int = 0);
 void resetStream();
@@ -15,6 +16,8 @@ bool isAorB(int num, int a, int b);
 TwelveHrClock::PartOfDayType inputPartOfDay();
 int inputClockType();
 Clock *makeClock();
+
+// M05 part b lab change twenty four hour clock to use exceptions
 
 int main()
 {
@@ -41,6 +44,8 @@ int main()
     try
     {
         Clock *myClock = makeClock();
+        std::cout << *myClock << std::endl;
+        delete myClock;
     }
     catch (std::invalid_argument e)
     {
@@ -75,6 +80,33 @@ bool isIntInRange(int num, int low, int high)
     return num >= low && num <= high;
 }
 
+int getInt(std::string prompt)
+{
+    int num;
+    bool validInput = false;
+    while (!validInput)
+    {
+        std::cout << prompt;
+        std::cin >> num;
+        std::cout << std::endl;
+        try
+        {
+            if (!std::cin)
+            {
+                throw std::runtime_error("Input Failure detected. Resetting stream.");
+            }
+            validInput = true;
+        }
+        catch (std::runtime_error e)
+        {
+            std::cout << e.what() << std::endl;
+            resetStream();
+        }
+    }
+
+    return num;
+}
+
 bool isIntGTX(int num, int x, int)
 {
     return num > x;
@@ -94,24 +126,63 @@ Clock *makeClock()
     std::string hourPrompt = "Enter the clock's hour: ";
     int hour;
     int min;
-    if (type == 12)
+    int sec;
+    bool validHour = false;
+    bool validMin = false;
+    bool validSec = false;
+    bool validAM = false;
+    bool retry = true;
+    while (retry)
+
     {
-        hour = getInt(hourPrompt, "The hour must be between 1 and 12. ", isIntInRange, 1, 13);
-    }
-    else
-    {
-        hour = getInt(hourPrompt, "The hour must be between 0 and 23. ", isIntInRange, 0, 23);
-    }
-    min = getInt("Enter the clock's minutes: ", "The minutes must be between 0 and 59.", isIntInRange, 0, 59);
-    TwelveHrClock::PartOfDayType part = TwelveHrClock::PM;
-    if (type == 12)
-    {
-        part = inputPartOfDay();
-        clockptr = new TwelveHrClock(hour, min, 0, part);
-    }
-    else
-    {
-        clockptr = new TwentyFourHrClock(hour, min, 0);
+        if (!validHour)
+        {
+            hour = getInt(hourPrompt);
+            validHour = true;
+        }
+        if (!validMin)
+        {
+            min = getInt("Enter the clock's minutes: ");
+            validMin = true;
+        }
+        if (!validSec)
+        {
+            sec = getInt("Enter the clock's seconds: ");
+            validSec = true;
+        }
+        TwelveHrClock::PartOfDayType part = TwelveHrClock::PM;
+        try
+        {
+            if (type == 12)
+            {
+                if (!validAM)
+                {
+                    part = inputPartOfDay();
+                    validAM = true;
+                }
+                clockptr = new TwelveHrClock(hour, min, 0, part);
+            }
+            else
+            {
+                clockptr = new TwentyFourHrClock(hour, min, 0);
+            }
+            retry = false;
+        }
+        catch (invalid_hour e)
+        {
+            std::cout << e.what() << std::endl;
+            validHour = false;
+        }
+        catch (invalid_min e)
+        {
+            std::cout << e.what() << std::endl;
+            validMin = false;
+        }
+        catch (invalid_sec e)
+        {
+            std::cout << e.what() << std::endl;
+            validSec = false;
+        }
     }
     return clockptr;
 }
