@@ -160,11 +160,11 @@ Clock *makeClock()
                     part = inputPartOfDay();
                     validAM = true;
                 }
-                clockptr = new TwelveHrClock(hour, min, 0, part);
+                clockptr = new TwelveHrClock(hour, min, sec, part);
             }
             else
             {
-                clockptr = new TwentyFourHrClock(hour, min, 0);
+                clockptr = new TwentyFourHrClock(hour, min, sec);
             }
             retry = false;
         }
