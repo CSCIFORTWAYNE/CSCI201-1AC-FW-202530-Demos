@@ -33,8 +33,30 @@ int main(int argc, char *argv[])
     try
     {
         rv = getaddrinfo(argv[1], "9431", &hints, &servInfo);
+        if (rv != 0)
+        {
+            throw std::runtime_error("getaddrinfo error");
+        }
+        int sock;
+        sock = socket(servInfo->ai_family, servInfo->ai_socktype, servInfo->ai_protocol);
+        if (sock == -1)
+        {
+            throw std::logic_error("Unable to open socket");
+        }
+        inet_ntop(servInfo->ai_family, (sockaddr_in *)servInfo->ai_addr, s, sizeof(s));
+        std::cout << "Client: attempting connection to " << s << std::endl;
+        rv = connect(sock, servInfo->ai_addr, servInfo->ai_addrlen);
+        if (rv == -1)
+        {
+            close(sock);
+            throw std::logic_error("Unable to connect to the server");
+        }
     }
-    catch (const std::exception &e)
+    catch (const std::runtime_error &e)
+    {
+        std::cerr << e.what() << " " << gai_strerror(rv) << std::endl;
+    }
+    catch (const std::logic_error &e)
     {
         std::cerr << e.what() << '\n';
     }
