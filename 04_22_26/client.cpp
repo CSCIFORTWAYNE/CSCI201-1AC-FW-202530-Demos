@@ -51,6 +51,34 @@ int main(int argc, char *argv[])
             close(sock);
             throw std::logic_error("Unable to connect to the server");
         }
+        inet_ntop(servInfo->ai_family, (struct sockaddr_in *)servInfo->ai_addr, s, sizeof(s));
+        std::cout << "client: connected to " << s << std::endl;
+        int input = 0;
+        std::cout << "Enter the starting number: ";
+        std::cin >> input;
+        while (!std::cin)
+        {
+            resetStream();
+            std::cout << "Enter the starting number: ";
+            std::cin >> input;
+        }
+        u_int32_t val = static_cast<uint32_t>(input);
+        val = htonl(val);
+        rv = send(sock, &val, sizeof(val), 0);
+        if (rv == -1)
+        {
+            close(sock);
+            throw std::logic_error("Client is unable to send");
+        }
+        int numbytes = recv(sock, &val, sizeof(val), 0);
+        if (numbytes == -1)
+        {
+            close(sock);
+            throw std::logic_error("Client is unable to receive.");
+        }
+        val = ntohl(val);
+        std::cout << "Server Response: " << val << std::endl;
+        close(sock);
     }
     catch (const std::runtime_error &e)
     {
