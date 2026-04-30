@@ -42,6 +42,16 @@ enum tempType
         ICE,
         BLEND
     };
+    
+const int NUM_DAIRY = 6;
+const int NUM_FLAV = 12;
+
+const std::string dairyStr[] = {"None",
+                                "Skim Milk",
+                                "Whole Milk",
+                                "Oat Milk",
+                                "Cream",
+                                "Almond Milk"};
 class drink
 {
 public:
