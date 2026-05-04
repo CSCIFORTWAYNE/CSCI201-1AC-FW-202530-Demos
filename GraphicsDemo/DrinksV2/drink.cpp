@@ -144,6 +144,11 @@ double drink::getPrice() const
     return price;
 }
 
+int drink::getNumFlavor() const
+{
+	return flavors.size();
+}
+
 std::string drink::toString() const
 {
     std::ostringstream out;
@@ -199,5 +204,21 @@ std::map<flavType, std::string> drink::flavToStr = {{HAZELNUT, "Hazelnut"},
                                                     {STRAWBERRY, "Strawberry"},
                                                     {PEPPERMINT, "Peppermint"},
                                                     {MANGO, "Mango"}};
+                                                    
+std::map<int, baseType> drink::intToBase = {{0,COFFEE},{1,TEA},{2,CREAM}};
+std::map<int, tempType> drink::intToTemp = {{0,HOT},{1,ICE},{2,BLEND}};
+std::map<int, sizeType> drink::intToSize = {{0,SMALL},{1,MED},{2,LARGE}};
 
-std::map<std::string, flavType> drink::strToFlav = {};
+
+std::map<std::string, flavType> drink::strToFlav = {{"hazelnut", HAZELNUT},
+                                                    {"apple", APPLE},
+                                                    {"butter pecan", BUTTERPECAN},
+                                                    {"blueberry", BLUEBERRY},
+                                                    {"caramel", CARAMEL},
+                                                    {"peach", PEACH},
+                                                    {"mocha", MOCHA},
+                                                    {"raspberry", RASPBERRY},
+                                                    {"french vanilla", FRENCHVANILLA},
+                                                    {"strawberry", STRAWBERRY},
+                                                    {"peppermint", PEPPERMINT},
+                                                    {"mango", MANGO}};

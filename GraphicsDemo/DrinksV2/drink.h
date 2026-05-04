@@ -62,6 +62,7 @@ public:
     std::string getSize() const;
     std::string getDairy() const;
     std::string getFlavor() const;
+    int getNumFlavor() const;
     double getPrice() const;
     void setBase(baseType b);
     void setTemperature(tempType t);
@@ -79,6 +80,9 @@ public:
     static std::map<std::string, tempType> strToTemp;
     static std::map<flavType, std::string> flavToStr;
     static std::map<std::string, flavType> strToFlav;
+    static std::map<int, baseType> intToBase;
+    static std::map<int, tempType> intToTemp;
+    static std::map<int, sizeType> intToSize;
     bool operator>=(const drink &rightDrink) const;
     friend std::ostream &operator<<(std::ostream &, const drink &);
 
