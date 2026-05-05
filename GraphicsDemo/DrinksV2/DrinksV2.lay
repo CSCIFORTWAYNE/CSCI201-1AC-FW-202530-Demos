@@ -12,8 +12,10 @@ LAYOUT(DrinksV2Layout, 720, 400)
 	ITEM(Upp::Label, priceLbl, SetLabel(t_("Drink Price:")).LeftPosZ(12, 104).TopPosZ(348, 20))
 	ITEM(Upp::EditString, price, SetEditable(false).WantFocus(false).LeftPosZ(148, 200).TopPosZ(348, 20))
 	ITEM(Upp::Button, addBtn, SetLabel(t_("Add Drink")).LeftPosZ(12, 336).TopPosZ(376, 20))
+	ITEM(Upp::DocEdit, drinkList, WantFocus(false).SetFrame(Upp::BlackFrame()).SetEditable(false).RightPosZ(12, 332).TopPosZ(12, 360))
+	ITEM(Upp::ParentCtrl, writeBtnHolder, RightPosZ(12, 332).TopPosZ(376, 20))
 END_LAYOUT
 
-LAYOUT(MainAppWindow, 720, 420)
+LAYOUT(MainAppWindow, 724, 420)
 END_LAYOUT
 

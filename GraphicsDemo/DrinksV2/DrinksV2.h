@@ -11,6 +11,7 @@ using namespace Upp;
 #include <vector>
 #include <sstream>
 #include <iomanip>
+#include <fstream>
 #include "drink.h"
 
 class DrinksV2 : public WithMainAppWindow<TopWindow> {
@@ -31,6 +32,8 @@ private:
 	sizeType s;
 	std::string dairy;
 	int numFlav;
+	Button writeBtn;
+	OptionTree optree;
 };
 
 #endif

@@ -1,10 +1,10 @@
 #include "DrinksV2.h"
 
-//todo option button events
-//todo new widgets
+
+
 //todo button events
 //todo destructor
-
+//todo experiments
 
 DrinksV2::DrinksV2()
 {
@@ -21,6 +21,9 @@ DrinksV2::DrinksV2()
 	scroller_view.temp = -1;
 	scroller_view.size = -1;
 	
+	writeBtn.SetLabel("Complete Order");
+	
+	
 	for(int i = 0; i < NUM_DAIRY; i++)
 	{
 		scroller_view.dairy.Add(dairyStr[i]);
@@ -31,6 +34,9 @@ DrinksV2::DrinksV2()
 	int rowDist = 20;
 	int rowCount = 0;
 	int i = 0;
+	optree.SetRoot("All Flavors");
+	optree.Add(0,"Gourmand");
+	optree.Add(0,"Fruit");
 	for(std::map<flavType, std::string>::iterator it = drink::flavToStr.begin(); it != drink::flavToStr.end(); ++it)
 	{
 		flavor[i].SetLabel(it->second.c_str());
@@ -85,6 +91,78 @@ DrinksV2::DrinksV2()
 			theDrink->setDairy(dairy);
 		}
 		checkPrice();
+	};
+	
+	scroller_view.addBtn << [&, this]
+	{
+		if(theDrink == nullptr)
+		{
+			if(scroller_view.size.GetData() == -1)
+			{
+				int def = ErrorYesNo("No size selected.\n Would you like to order a small?");
+				if(!def)
+				{
+					return;
+				}
+				else
+				{
+					scroller_view.size = 0;
+					s = SMALL;
+					checkPrice();
+				}
+			}
+			if(scroller_view.base.GetData() == -1)
+			{
+				int def = ErrorYesNo("No base selected.\n Would you like to order a cream?");
+				if(!def)
+				{
+					return;
+				}
+				else
+				{
+					scroller_view.base = 2;
+					b = CREAM;
+					checkPrice();
+				}
+			}
+			if(scroller_view.temp.GetData() == -1)
+			{
+				int def = ErrorYesNo("No temperature selected.\n Would you like to order a hot drink?");
+				if(!def)
+				{
+					return;
+				}
+				else
+				{
+					scroller_view.temp = 0;
+					t = HOT;
+					checkPrice();
+				}
+			}
+		
+		}
+		order.push_back(theDrink);
+		std::ostringstream drinkStr;
+		drinkStr << *theDrink << std::endl;
+		scroller_view.drinkList.Append(drinkStr.str());
+		
+		scroller_view.base = -1;
+		scroller_view.temp = -1;
+		scroller_view.size = -1;
+		theDrink = nullptr;
+		scroller_view.dairy.GoBegin();
+		for(int i = 0; i<NUM_FLAV; i++)
+		{
+			flavor[i] = 0;
+		}
+		scroller_view.price.SetData("");
+		scroller_view.writeBtnHolder.Add(writeBtn.HSizePosZ().VSizePosZ());
+			
+	};
+	
+	writeBtn << [&, this]
+	{
+		saveOrder();
 	};
 }
 
@@ -148,6 +226,21 @@ void DrinksV2::handleFlavor(int i)
 		}
 	}
 	checkPrice();
+}
+
+void DrinksV2::saveOrder()
+{
+	std::ofstream outFile("order.txt");
+	outFile << std::setprecision(2) << std::showpoint << std::fixed;
+	double total = 0;
+	for(drink * d : order) //ranged based for loop aka for each for loop
+	{
+		outFile << *d << std::endl;
+		total += d->getPrice();
+	}
+	outFile << "Total: $" << total;
+	outFile.close();
+	Close();
 }
 
 DrinksV2::~DrinksV2()
