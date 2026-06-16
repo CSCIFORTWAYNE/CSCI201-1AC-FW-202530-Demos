@@ -33,7 +33,13 @@ enum flavType
     FRENCHVANILLA,
     STRAWBERRY,
     PEPPERMINT,
-    MANGO
+    MANGO,
+    HORCHATA,
+    RAZZLEBERRY,
+    COOKIESNCREAM,
+    BLACKCURRANT,
+    ALMOND,
+    ORANGE
 
 };
 enum tempType
@@ -44,7 +50,7 @@ enum tempType
     };
     
 const int NUM_DAIRY = 6;
-const int NUM_FLAV = 12;
+const int NUM_FLAV = 18;
 
 const std::string dairyStr[] = {"None",
                                 "Skim Milk",
@@ -72,6 +78,7 @@ public:
     void removeFlavor(flavType);
     void removeAllFlavor();
     std::string toString() const;
+
     static std::map<baseType, std::string> baseToStr; // map for output
     static std::map<std::string, baseType> strToBase; // map for input
     static std::map<sizeType, std::string> sizeToStr;

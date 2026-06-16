@@ -176,6 +176,8 @@ std::ostream &operator<<(std::ostream &out, const drink &d)
     return out;
 }
 
+
+
 std::map<baseType, std::string> drink::baseToStr = {{COFFEE, "Coffee"}, {TEA, "Tea"}, {CREAM, "Cream"}};
 std::map<tempType, std::string> drink::tempToStr = {{HOT, "Hot"},
                                                            {ICE, "Iced"},
@@ -203,7 +205,13 @@ std::map<flavType, std::string> drink::flavToStr = {{HAZELNUT, "Hazelnut"},
                                                     {FRENCHVANILLA, "French Vanilla"},
                                                     {STRAWBERRY, "Strawberry"},
                                                     {PEPPERMINT, "Peppermint"},
-                                                    {MANGO, "Mango"}};
+                                                    {MANGO, "Mango"},
+                                                    {HORCHATA, "Horchata"},
+													{COOKIESNCREAM, "Cookies & Cream"},
+													{RAZZLEBERRY, "Razzleberry"},
+													{BLACKCURRANT, "Blackcurrant"},
+													{ORANGE, "Orange"},
+													{ALMOND, "Almond"}};
                                                     
 std::map<int, baseType> drink::intToBase = {{0,COFFEE},{1,TEA},{2,CREAM}};
 std::map<int, tempType> drink::intToTemp = {{0,HOT},{1,ICE},{2,BLEND}};
@@ -221,4 +229,10 @@ std::map<std::string, flavType> drink::strToFlav = {{"hazelnut", HAZELNUT},
                                                     {"french vanilla", FRENCHVANILLA},
                                                     {"strawberry", STRAWBERRY},
                                                     {"peppermint", PEPPERMINT},
-                                                    {"mango", MANGO}};
+                                                    {"mango", MANGO},
+                                                    {"horchata", HORCHATA},
+													{"cookies & cream", COOKIESNCREAM},
+													{"razzleberry", RAZZLEBERRY},
+													{"blackcurrant",BLACKCURRANT},
+													{"orange",ORANGE},
+													{"almond", ALMOND}};

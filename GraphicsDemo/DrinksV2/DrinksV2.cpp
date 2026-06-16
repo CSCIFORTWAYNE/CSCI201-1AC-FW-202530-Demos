@@ -2,7 +2,6 @@
 
 
 
-//todo button events
 //todo destructor
 //todo experiments
 
@@ -39,19 +38,31 @@ DrinksV2::DrinksV2()
 	optree.Add(0,"Fruit");
 	for(std::map<flavType, std::string>::iterator it = drink::flavToStr.begin(); it != drink::flavToStr.end(); ++it)
 	{
-		flavor[i].SetLabel(it->second.c_str());
+		/*flavor[i].SetLabel(it->second.c_str());
 		scroller_view.flavorOptions.Add(flavor[i].LeftPosZ(optionSize*(i%2),
 		optionSize).TopPosZ(rowDist*rowCount));
 		if(i%2 == 1)
 		{
 			rowCount++;
-		}
+		}*/
+		optree.Add(i%2 + 1, flavor[i], it->second.c_str());
 		flavor[i] << [&, this, i]
 		{
 			handleFlavor(i);
 		};
 		i++;
 	}
+	scroller_view.flavorOptions.Add(optree.SizePos());
+	
+	optree.WhenOption = [&, this]
+	{
+		
+		
+		for(int i = 0; i < NUM_FLAV; i++)
+		{
+			handleFlavor(i);
+		}
+	};
 	
 	scroller_view.base << [&, this]
 	{
@@ -230,19 +241,30 @@ void DrinksV2::handleFlavor(int i)
 
 void DrinksV2::saveOrder()
 {
-	std::ofstream outFile("order.txt");
-	outFile << std::setprecision(2) << std::showpoint << std::fixed;
+	/*FileSelector fileSel;
+	fileSel.ExecuteSaveAs("order.txt");*/
+	SelectFileOut outFile("Text files\t*.txt");
+	//std::ofstream outFile("order.txt");
+	std::ostringstream out;
+	out << std::setprecision(2) << std::showpoint << std::fixed;
+	
 	double total = 0;
 	for(drink * d : order) //ranged based for loop aka for each for loop
 	{
-		outFile << *d << std::endl;
+		outFile << d->toString() << "\n";
 		total += d->getPrice();
 	}
-	outFile << "Total: $" << total;
-	outFile.close();
+	out << "Total: $" << total;
+	outFile << out.str();
+	outFile.Close();
+	//outFile.close();
 	Close();
 }
 
 DrinksV2::~DrinksV2()
 {
+	for(drink * d : order)
+	{
+		delete d;
+	}
 }
